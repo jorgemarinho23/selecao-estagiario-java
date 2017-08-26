@@ -1,0 +1,65 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="titulo">Promoção funcionário</ui:define>
+    
+    <ui:define name="corpo">
+    	<h1>Promoção funcionário</h1>
+    	
+    	<h:form id="frmFiltro">
+    		<p:messages id="messages" autoUpdate="true" closable="true" />
+    		
+    		<p:toolbar style="margin-top: 20px">
+    			<p:toolbarGroup>
+					<p:commandButton value="Pesquisa" id="botaoPesquisa"  action="#{promocaoFuncionarioBean.buscarPorCargo}" update="@form" icon="ui-icon-search"/>
+				</p:toolbarGroup>
+    		</p:toolbar>
+    		
+    		<p:panelGrid columns="2" id="painel" style="width: 100%" columnClasses="rotulo, campo">
+			    <p:outputLabel value="cargo" for="cargo"/>
+			    <p:selectOneMenu id="cargo" value="#{promocaoFuncionarioBean.cargoSelecionado}" >
+			    <f:selectItem itemLabel="Selecione o cargo" />
+	    			<f:selectItems value="#{promocaoFuncionarioBean.cargos}" var="cargo" 
+						itemLabel="#{cargo.descricao}" itemValue="#{cargo}"/>
+	    		</p:selectOneMenu>
+			</p:panelGrid>
+			
+			<h:panelGroup rendered="#{promocaoFuncionarioBean.cargoSelecionado != null}">
+				<h3>Funcionários por cargo</h3>
+				<p:toolbar style="margin-top: 20px">
+    			<p:toolbarGroup>
+					<p:commandButton value="Calcular" id="botaoCalcular"  action="#{promocaoFuncionarioBean.calcularPercentual}" update="@form"/> 
+				    <p:outputLabel value="Percentual de aumento" for="percentual"/>
+	    		    <p:inputText id="percentual" size="5" maxlength="80" value="#{promocaoFuncionarioBean.percentualAumento}"/>
+				</p:toolbarGroup>
+    		    </p:toolbar>
+
+				<p:dataTable id="funcionariosTable" value="#{promocaoFuncionarioBean.funcionarios}" var="funcionario"
+		    		style="margin-top: 20px" emptyMessage="Nenhum funcionário encontrado." rows="5"
+		    		paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+		    		
+		    		<p:column headerText="Matricula" style="text-align: center; width: 100px">
+		    			<h:outputText value="#{funcionario.matricula}" />
+		    		</p:column>
+		    		<p:column headerText="Nome">
+		    			<h:outputText value="#{funcionario.nome}" />
+		    		</p:column>
+		    		<p:column headerText="Cargo">
+		    			<h:outputText value="#{funcionario.cargo.descricao}" /> 
+		    		</p:column>
+		    		<p:column headerText="Salário">
+		    			<h:outputText value="#{funcionario.salario}" styleClass="moeda">
+		    			<f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+		    			</h:outputText>
+		    		</p:column>
+		    		
+		    </p:dataTable>
+			</h:panelGroup>
+
+		</h:form>
+    </ui:define>
+</ui:composition>

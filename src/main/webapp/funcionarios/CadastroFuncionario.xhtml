@@ -1,0 +1,53 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:o="http://omnifaces.org/ui">
+
+    <ui:define name="titulo">Novo Funcionario</ui:define>
+    
+    <ui:define name="corpo">
+    	<f:metadata>
+			<o:viewParam name="funcionario" value="#{cadastroFuncionarioBean.funcionario}" />
+		</f:metadata>
+    
+    	<h1>Novo Funcionario</h1>
+    
+    	<h:form id="frmCadastro">
+	    	<p:messages id="messages" autoUpdate="true" closable="true" />
+	    	
+	    	<p:toolbar style="margin-top: 20px">
+	    		<p:toolbarGroup>
+	    			<p:commandButton value="Salvar" id="botaoSalvar" action="#{cadastroFuncionarioBean.salvar}" update="frmCadastro"  icon="ui-icon-disk"/>
+	    		</p:toolbarGroup>
+	    		<p:toolbarGroup align="right">
+					<p:button value="Pesquisa" outcome="/funcionarios/PesquisaFuncionarios.xhtml" icon="ui-icon-search"/>					
+				</p:toolbarGroup>
+	    	</p:toolbar>
+	    	
+	    	<p:panelGrid columns="2" id="painel" style="width: 100%; margin-top: 20px"
+	    			columnClasses="rotulo, campo">
+	    		<p:outputLabel value="Matricula" for="matricula"/>
+	    		<p:inputText id="matricula" size="20" maxlength="20" value="#{cadastroFuncionarioBean.funcionario.matricula}" readonly="true"/>
+	
+	    		<p:outputLabel value="Nome" for="nome"/>
+	    		<p:inputText id="nome" size="60" maxlength="80" value="#{cadastroFuncionarioBean.funcionario.nome}"/>
+	    		
+	    		<p:outputLabel value="Cargo" for="cargo"/>
+	    		<p:selectOneMenu id="cargo" value="#{cadastroFuncionarioBean.funcionario.cargo}">
+	    			<f:selectItem itemLabel="Selecione o cargo" />
+	    			<f:selectItems value="#{cadastroFuncionarioBean.cargos}" var="cargo" 
+					itemLabel="#{cargo.descricao}" itemValue="#{cargo}"/>
+	    		</p:selectOneMenu>
+	    		
+	    		<p:outputLabel value="Salário" for="salario"/>
+	    		<p:inputText id="salario" size="10" maxlength="80" styleClass="moeda" value="#{cadastroFuncionarioBean.funcionario.salario}">
+	    		<f:convertNumber maxFractionDigits="2" minFractionDigits="2"/>
+	    		</p:inputText>
+	    		
+	    	</p:panelGrid>
+    	</h:form>
+    </ui:define>
+</ui:composition>
