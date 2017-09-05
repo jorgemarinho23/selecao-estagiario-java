@@ -28,7 +28,7 @@ public class CadastroCargoBean implements Serializable {
 	}
 	
 	@PostConstruct
-	public void iniciar(){
+	public void iniciar(){  
 		this.limpar();
 	}
 	

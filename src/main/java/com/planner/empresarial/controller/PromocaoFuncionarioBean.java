@@ -2,7 +2,6 @@ package com.planner.empresarial.controller;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -35,27 +34,25 @@ public class PromocaoFuncionarioBean implements Serializable {
 	@Inject
 	private PromocaoFuncionarioService promocaoFuncionarioService;
 	
-	
 	public void buscarPorCargo(){
-		this.funcionarios = this.funcionariosRepository.buscarPorCargo(cargoSelecionado);
+			this.funcionarios = this.funcionariosRepository.buscarPorCargo(cargoSelecionado);
 	}
 
-	
 	public void calcularPercentual(){
 		try {
 			this.promocaoFuncionarioService.AtualizarSalario(percentualAumento,cargoSelecionado);
 			this.buscarPorCargo();
-			FacesUtil.addInfoMessage("Salários atualizados com sucesso !");
-			this.percentualAumento = BigDecimal.ZERO;
-			
+			FacesUtil.addInfoMessage("Operação realizada com sucesso !");
+			FacesUtil.addInfoMessage("Acrescentado o percentual de ("+percentualAumento+"%) no salário, para todos os funcionários do cargo ("+cargoSelecionado.getDescricao()+")");
+			this.percentualAumento = BigDecimal.ZERO; 
 			
 		} catch (Exception e) {
 			FacesUtil.addErrorMessage(e.getMessage());
+			this.percentualAumento = BigDecimal.ZERO;
 		}
 		
 	}
-	
-	
+
 	@PostConstruct
 	public void iniciar(){
 		this.cargos = cargosRepository.buscarTodos();
@@ -76,7 +73,7 @@ public class PromocaoFuncionarioBean implements Serializable {
 	public List<Cargo> getCargos() {
 		return cargos;
 	}
-	
+	@NotNull
 	public BigDecimal getPercentualAumento() {
 		return percentualAumento;
 	}

@@ -6,8 +6,11 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 
+import org.apache.commons.lang3.ObjectUtils.Null;
+
 import com.planner.empresarial.model.Cargo;
 import com.planner.empresarial.model.Funcionario;
+import com.planner.empresarial.service.NegocioException;
 import com.planner.empresarial.util.jpa.Transactional;
 
 public class Funcionarios implements Serializable {
@@ -39,14 +42,16 @@ public class Funcionarios implements Serializable {
 		
 	}
 
-	public List<Funcionario> buscarPorCargo(Cargo cargo) {
+	public List<Funcionario> buscarPorCargo(Cargo cargo)  {
 		
 		String jpql ="from Funcionario where cargo = :cargo";
 		
-		List<Funcionario> funcionarios = em.createQuery(jpql, Funcionario.class)
-				                .setParameter("cargo", cargo)
-				                .getResultList();
-               
-         return funcionarios;
+	
+			List<Funcionario> funcionarios = em.createQuery(jpql, Funcionario.class)
+	                .setParameter("cargo", cargo)
+	                .getResultList();
+   
+           return funcionarios;
+		
 	}
 }

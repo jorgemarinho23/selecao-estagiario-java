@@ -3,6 +3,7 @@ package com.planner.empresarial.model;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
@@ -17,7 +18,7 @@ public class Cargo {
 	private String descricao;
 	
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	public Long getCodigo() {
 		return codigo;
 	}
@@ -56,7 +57,6 @@ public class Cargo {
 		} else if (!codigo.equals(other.codigo))
 			return false;
 		return true;
-	}
-	
+	}	
 	
 }

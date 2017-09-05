@@ -76,25 +76,27 @@ ENTRE OS CRITÉRIOS DE AVALIAÇÃO ESTÃO:
 * BOAS PRÁTICAS DE DESENVOLVIMENTO
 
 
+----------------------------------------------------------------------------------------------------------------------
 
----------------------------------Documnetação-----------------------------------------
 
-                            FUNCIONAMENTO
-Conforme implementação solicitada, foram criados os cruds de cadastro de cargo com as campos (codigo e descrição) cadastro de funcionário com os campos (matricula, nome, cargo e salário), com o relacionamento de muitos funcionários para um cargo(@ManyToOne). Em seguida foi implementada a rotina de promoção de funcionários com a fucionalidade de aumento de salário por cargo, o usuário escolhe o cargo clica em pesquisar para popular o *DATATABLE* com os funcionários do cargo selecionado, em seguida o usuário informa o percentual de aumento no *INPUTTEXT*, clica em calcular logo após a rotina salva o novo salário com o devido aumento e mostra os valores atualizados no *DATATABLE*.
+-DOCUMENTAÇÃO
 
-                            ARQUITETURA
+                                   -FUNCIONAMENTO-
+Conforme implementação solicitada, foram criados os cruds de cadastro de cargo com os campos (codigo e descrição), cadastro de funcionário com os campos (matricula, nome, cargo e salário), com o relacionamento de muitos funcionários para um cargo(@ManyToOne). Em seguida foi implementada a rotina de promoção de funcionários com a fucionalidade de aumento de salário por cargo, o usuário seleciona o cargo para popular o *DATATABLE* com os funcionários do cargo selecionado, em seguida o usuário informa o percentual de aumento no *INPUTTEXT*, clica em calcular, logo após a rotina salva o novo salário com o devido aumento e mostra os valores atualizados no *DATATABLE*.
+
+                                    -ARQUITETURA-
                             
 -No pacote model foram criadas as entidades Cargo com as variáveis (codigo e descrição) e Funcionário com as variáveis (matricula,nome,cargo e salário).
 
 -No pacote repository foram criados os repositorios cargos e funcionários, e injetado o entityManager para gerenciar as entidades criadas.
 
--No pacote service foram criadas as regras para cargo, funcionário e promoção de funcionário. O service promoção de funcionário recebe o percentual e o cargo, pelo metodo atualizarSalário, em seguida pega o cargo selecionado e retorna uma lista com os funcionários do respectivo cargo, pelo metodo buscarPorCargo do repository funcionarios, logo após foi criada uma estrutura de repetição para pegar os funcionários retornados na lista e então fazer os calculos (percentual / 100 multiplicado pelo salário atual) para pegar o percentual de aumento depois foi somado(percentual + salário atual) e foi setado o novo salário dos funcionários.
+-No pacote service foram criadas as regras para cargo, funcionário e promoção de funcionário. O service promoção de funcionário recebe o percentual e o cargo, pelo metodo atualizarSalário, em seguida pega o cargo selecionado e retorna uma lista com os funcionários do respectivo cargo, pelo metodo buscarPorCargo do repository funcionarios, logo após foi criada uma estrutura de repetição para pegar os funcionários retornados na lista e então fazer os calculos (percentual / 100 multiplicado pelo salário atual) para pegar o percentual de aumento, depois foi somado(percentual + salário atual) e foi setado o novo salário dos funcionários.
 
 -No pacote controller foram criados os beans para cadastros e pesquisas das respecitivas entidades criadas e o bean promoção de funcionário.
 
 -Foram criadas as telas Cadastro de funcionários, Pesquisa de funcionários,Cadastro de cargo, Pesquisa de cargo e promoção de funcionários.
 
-               -TECNOLOGIAS ULTILIZADAS - 
+                                    -TECNOLOGIAS ULTILIZADAS- 
                
 JAVAEE (PROGRAMAÇÃO)
 TOMCAT (SERVIDOR)

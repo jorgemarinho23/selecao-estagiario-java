@@ -42,6 +42,7 @@ public class CadastroFuncionarioBean implements Serializable {
 	public void limpar(){
 		this.funcionario = new Funcionario();
 		this.cargos = cargosRepository.buscarTodos();
+		
 	}
 	public Funcionario getFuncionario() {
 		return funcionario;
